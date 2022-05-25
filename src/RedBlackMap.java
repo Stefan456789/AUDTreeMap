@@ -1,6 +1,6 @@
 import java.util.Collection;
 import java.util.Set;
-import java.util.TreeSet;
+import java.util.HashSet;
 
 public class RedBlackMap {
 
@@ -50,6 +50,34 @@ public class RedBlackMap {
         size++;
     }
 
+    public void case1(Entry e){
+        if(e.parent == root){
+            case5(e);
+        }
+        
+    }
+    public void case2(Entry e){
+        
+    }
+    public void case3(Entry e){
+
+    }
+    public void case4(Entry e){
+
+    }
+    public void case5(Entry e){
+
+    }
+
+
+
+
+
+
+
+
+
+
 
     public void validate(Entry e) {
         if (!e.parent.black) {
@@ -64,6 +92,7 @@ public class RedBlackMap {
 
     public String get(String key) {
         Entry r = root;
+        boolean left = false;
 
         while (!(r == null)) {
             if (r.key.compareTo(key) < 0) {
@@ -84,55 +113,76 @@ public class RedBlackMap {
     public String remove(String key) {
         //not finished
         Entry r = root;
+        String oldValue = "";
+
 
         while (!(r == null)) {
             if (r.key.compareTo(key) < 0) {
                 r = r.left;
+            } else if (r.key.compareTo(key) > 0) {
+                r = r.right;
             } else {
-                if (r.key.compareTo(key) > 0) {
-                    r = r.right;
-                } else {
-                    String value = r.value;
-
-                    return value;
-                }
+                break;
             }
         }
-        return null;
+
+        if (r.left == null && r.right == null){
+            
+            r.parent
+            
+        }
+
+
+        return oldValue;
     }
 
     public Set<String> keySet() {
-        Set<String> set = new TreeSet<>();
+        Set<String> set = new HashSet<>();
         Entry r = root;
         String s;
+        set.add(r.key);
         while (set.size() != size()) {
             if (set.contains(r.left) && r.right != null) {
                 r = r.right;
-                s = r.key;
-            } else if (set.contains(r) && r.right == null && r.left == null) {
+            } else if (set.contains(r) && (set.contains(r.left) || r.left == null) && (set.contains(r.right) || r.right == null)) {
+
                 r = r.parent;
-            } else {
+            }
+            else
+            {
                 r = r.left;
             }
-
-            if (!set.contains(r)) {
-                set.add(r);
+            if (!set.contains(r.key)) {
+                set.add(r.key);
             }
         }
         return set;
     }
 
-}
+
 
         public Collection<String> values () {
+            Collection<String> values;
+            Entry r = root;
+            values.add(root);
+            while(values.size() != size()){
+                if(values.contains(r.left) && r.right != null){
+                    r = r.right;
+                }else if(values.contains(r) && (values.contains(r.left) || r.left == null) && (values.contains(r.right) || r.right == null)){
+                    r = r.parent;
+                }else{
+                    r = r.left;
+                }
 
-            // TODO : start programming here
-
+                if(!values.contains(r.value)){
+                    values.add(r.value);
+                }
+            }
             return null; // TODO : change
         }
 
         public Set<Entry> entrySet () {
-            Set<Entry> set = new TreeSet<>();
+            Set<Entry> set = new HashSet<>();
             Entry r = root;
             set.add(root);
             while(set.size() != size()){
@@ -188,35 +238,50 @@ public class RedBlackMap {
 
             Entry childLeft = root.left;
             Entry childRight = root.right;
-            int countBlack;
+            int countBlack = 0;
 
             if(root.black == false) {
                 return false;
             }
 
-            while(!childLeft.black) {
-                childLeft = childLeft.left;
-                childRight = childRight.right;
+            while(!childRight.black == true) {
                 if(!(childLeft.black && childRight.black)) {
                     return false;
                 }
+                childLeft = childLeft.left;
+                childRight = childRight.right;
             }
 
             childLeft = root.left;
             childRight = root.right;
 
             while(childLeft.black == true) {
-                childLeft = childLeft.left;
                 if(!(childLeft.value == null)) {
                     return false;
                 }
+                childLeft = childLeft.left;
             }
 
             while(childRight.black == true) {
-                childRight = childRight.left;
                 if(!(childRight.value == null)) {
                     return false;
                 }
+                childRight = childRight.left;
+            }
+
+            childLeft = root.left;
+            childRight = root.right;
+
+            while(childRight != null) {
+                if(childRight.black == true) {
+                    countBlack++;
+                }
+                childRight = childRight.right;
+            }
+            System.out.println("rechts" + countBlack);
+
+            while(childLeft != null) {
+                if()
             }
 
             return true;
@@ -236,7 +301,7 @@ public class RedBlackMap {
                 if (centerNode.parent.right.equals(oldParent));
                     centerNode.parent.right = centerNode;
 
-                if (centerNode.parent.left.equals(oldParent);
+                if (centerNode.parent.left.equals(oldParent));
                     centerNode.parent.left = centerNode;
 
                 oldParent.parent = centerNode;
