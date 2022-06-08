@@ -250,10 +250,9 @@ public class MyMap {
     public Set<String> keySet() {
         Set<String> set = new HashSet<>();
         Entry r = root;
-        String s;
         set.add(r.key);
         while (set.size() != size()) {
-            if (set.contains(r.left) && r.right != null) {
+            if ((set.contains(r.left) || r.left == null)&& r.right != null) {
                 r = r.right;
             } else if (set.contains(r) && (set.contains(r.left) || r.left == null) && (set.contains(r.right) || r.right == null)) {
 
@@ -261,7 +260,7 @@ public class MyMap {
             } else {
                 r = r.left;
             }
-            if (!set.contains(r.key)) {
+            if (r.key != null && !set.contains(r.key)) {
                 set.add(r.key);
             }
         }
