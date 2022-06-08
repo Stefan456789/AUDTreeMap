@@ -67,6 +67,10 @@ public class MyMap {
             handlePutCases(e);
             return;
         }
+        if(onkl == null|| onkl.black == false){
+            case4(e, onkl);
+        }
+
 
     }
 
@@ -80,7 +84,7 @@ public class MyMap {
     private void case2(Entry e, Entry onkl) {
 
                 if(onkl.black == false){
-                    case3(e);
+                    case3(e, onkl);
                     return;
                 }
 
@@ -92,29 +96,42 @@ public class MyMap {
 
     }
 
-    private void case3(Entry e) {
+    private void case3(Entry e, Entry onkl) {
         Entry temp = null;
         if(e.parent.right.equals(e)){
             temp = e.parent.left;
             e.parent.left = e.parent;
             e.parent = e;
             e = temp;
-            case4(e);
+            case4(e, onkl);
         }else{
             temp = e.parent.right;
             e.parent.right = e.parent;
             e.parent = e;
             e = temp;
-            case4(e);
+            case4(e, onkl);
         }
     }
 
-    private void case4(Entry e) {
+    private void case4(Entry e, Entry onkl) {
+        Entry temp = onkl.parent;
+        onkl.parent = e.parent;
+
+        if(e.parent.parent.right == e.parent){
+            e.parent.parent.left = temp;
+        }else{
+            e.parent.parent.right = temp;
+        }
+        e.parent.black = true;
+        temp.black = false;
+
+
+
 
     }
 
     private void case5(Entry e) {
-
+        e.parent.black = true;
     }
 
 
