@@ -1,3 +1,5 @@
+package at.htlgkr.aud.ljsjs.redblackmap;
+
 import java.util.TreeMap;
 
 import static org.junit.Assert.*;
@@ -6,7 +8,7 @@ public class RedBlackMapTest {
 
     @org.junit.Test
     public void put() {
-        /*MyMap map = new MyMap();
+        /*at.htlgkr.aud.ljsjs.redblackmap.MyMap map = new at.htlgkr.aud.ljsjs.redblackmap.MyMap();
         TreeMap<String, String> treeMap = new TreeMap<>();
         map.put("A", "ATest");
         treeMap.put("A", "ATest");

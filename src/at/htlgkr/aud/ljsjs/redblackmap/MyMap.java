@@ -1,3 +1,5 @@
+package at.htlgkr.aud.ljsjs.redblackmap;
+
 import java.util.*;
 
 public class MyMap {
@@ -7,7 +9,9 @@ public class MyMap {
 
     public String put(String key, String value) {
 
-        //return den String wenn put einen value ersetzt!!!!!!!!!!
+
+        String returnVal = null;
+
 
         if (root == null) {
             root = new Entry(key, value, null);
@@ -41,6 +45,7 @@ public class MyMap {
 
 
                     } else {
+                        returnVal = r.value;
                         r.value = value;
 
                     }
@@ -49,6 +54,7 @@ public class MyMap {
             }
         }
         size++;
+        return returnVal;
     }
 
     private void handlePutCases(Entry e) {
