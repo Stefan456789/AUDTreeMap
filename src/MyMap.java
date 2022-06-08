@@ -253,7 +253,27 @@ public class MyMap {
 
 
     public Collection<String> values() {
+
         Collection<String> values = new ArrayList<String>();
+        Entry r = root;
+        values.add(r.value);
+        while (values.size() != size()) {
+            if ((values.contains(r.left) || r.left == null)&& r.right != null) {
+                r = r.right;
+            } else if (values.contains(r) && (values.contains(r.left) || r.left == null) && (values.contains(r.right) || r.right == null)) {
+
+                r = r.parent;
+            } else {
+                r = r.left;
+            }
+            if (r.value != null && !values.contains(r.value)) {
+                values.add(r.value);
+            }
+        }
+        return values;
+
+
+        /*Collection<String> values = new ArrayList<String>();
         Entry r = root;
         values.add(root.value);
         while (values.size() != size()) {
@@ -270,7 +290,7 @@ public class MyMap {
             }
         }
 
-        /*Collection<String> values = new ArrayList<String>();
+        Collection<String> values = new ArrayList<String>();
             Entry r = root;
             values.add(root);
             while(values.size() != size()){
@@ -293,7 +313,7 @@ public class MyMap {
         Entry r = root;
         set.add(root);
         while (set.size() != size()) {
-            if (set.contains(r.left) && r.right != null) {
+            if ((set.contains(r.left) || r.left == null) && r.right != null) {
                 r = r.right;
             } else if (set.contains(r) && (set.contains(r.left) || r.left == null) && (set.contains(r.right) || r.right == null)) {
                 r = r.parent;
@@ -312,7 +332,7 @@ public class MyMap {
         Entry r = root;
         Set<String> set = new HashSet();
         while (set.size() != size()) {
-            if (set.contains(r.left) && r.right != null) {
+            if ((set.contains(r.left) || r.left == null) && r.right != null) {
                 r = r.right;
             } else if (set.contains(r) && (set.contains(r.left) || r.left == null) && (set.contains(r.right) || r.right == null)) {
                 r = r.parent;
