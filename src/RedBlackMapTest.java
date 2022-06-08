@@ -6,7 +6,7 @@ public class RedBlackMapTest {
 
     @org.junit.Test
     public void put() {
-        /*RedBlackMap map = new RedBlackMap();
+        /*MyMap map = new MyMap();
         TreeMap<String, String> treeMap = new TreeMap<>();
         map.put("A", "ATest");
         treeMap.put("A", "ATest");

@@ -1,14 +1,13 @@
-import java.util.Collection;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.ArrayList;
+import java.util.*;
 
-public class RedBlackMap {
+public class MyMap {
 
     private Entry root = null;
     private int size = 0;
 
-    public void put(String key, String value) {
+    public String put(String key, String value) {
+
+        //return den String wenn put einen value ersetzt!!!!!!!!!!
 
         if (root == null) {
             root = new Entry(key, value, null);
@@ -120,6 +119,7 @@ public class RedBlackMap {
 
 
     private void validate(Entry e) {
+        /*
         if (!e.parent.black) {
 
             e.black = true;
@@ -127,7 +127,8 @@ public class RedBlackMap {
         }
         if ((!e.right.black || e.right != null) && (!e.left.black || e.left != null)) {
             e.black = true;
-        }
+        }*/
+
     }
 
     public String get(String key) {
@@ -197,6 +198,8 @@ public class RedBlackMap {
                 // Knoten ist nicht die Wurzel, hat kein Kind, ist schwarz (also ein schwarzes Blatt)
                     if (r.right == null && r.left == null && r.black && r.parent != null){
                         RBdelete2(r);
+                    } else {
+
                     }
 
 
@@ -217,6 +220,8 @@ public class RedBlackMap {
             s = p.right;
         else if (p.right.equals(n))
             s = p.left;
+
+
 
 //von Wiki abschreiben
 
@@ -281,7 +286,6 @@ public class RedBlackMap {
                     values.add(r.value);
                 }
             }*/
-        return values; // TODO : change
     }
 
     public Set<Entry> entrySet() {
@@ -429,5 +433,30 @@ public class RedBlackMap {
         oldParent.parent = centerNode;
     }
 
+    static class Entry{
 
+    public String key ;
+    public String value ;
+
+    public Entry left ;
+    public Entry right ;
+    public Entry parent ;
+
+    public boolean black = false;
+
+
+    Entry( String key , String value , Entry parent )
+    {
+        this.key = key ;
+        this.value = value ;
+        this.parent = parent ;
+    }
+
+    public boolean valid(){
+        if (left.key.compareTo(this.key) > 0) return false;
+        if (right.key.compareTo(this.key) < 0) return false;
+        return true;
+    }
+
+    }
 }
