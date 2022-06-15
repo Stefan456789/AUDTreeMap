@@ -24,6 +24,7 @@ public class MyMap {
                     if (r.left == null) {
                         r.left = new Entry(key, value, r);
                         this.validate(r.left);
+                        //handlePutCases(r.left);
                         con = false;
                     } else {
                         r = r.left;
@@ -37,10 +38,12 @@ public class MyMap {
 
                             r.right = new Entry(key, value, r);
                             this.validate(r.right);
+                            //handlePutCases(r.right);
                             con = false;
                         } else {
                             r = r.right;
                             this.validate(r);
+                            //handlePutCases(r);
                         }
 
 
