@@ -180,6 +180,10 @@ public class MyMap {
         String oldValue = "";
 
 
+
+
+
+
         while (!(r == null)) {
             if (r.key.compareTo(key) < 0) {
                 r = r.left;
@@ -190,6 +194,23 @@ public class MyMap {
             }
         }
 
+        Entry parent = r.parent;
+        Entry current = r;
+
+        while (true){
+            if (current.left != null && !current.parent.equals(parent)){
+                current = r.left;
+            } else if (!current.parent.equals(parent)){
+                if (current.right != null){
+                    current = current.right;
+                }else{
+                    //Finde alle unter key und putte sie neu dann lösche sie
+                }
+
+            }
+        }
+
+        /*
         //Easy Case
         if (r.parent == null && r.left == null && r.right == null) {
             root = null;
@@ -226,7 +247,7 @@ public class MyMap {
                     }
 
 
-
+*/
         return oldValue;
 
     }
@@ -244,13 +265,29 @@ public class MyMap {
         else if (p.right.equals(n))
             s = p.left;
 
+        if (p.parent.left.equals(p)){
+            c = p.right.left;
+            d = p.right.right;
+        } else if (p.parent.right.equals(p)){
+            c = p.left.right;
+            d = p.right.right;
+        }
 
+        if(n.black && n.right == null && n.left == null){
+            if (p.left.equals(n))
+                p.left = null;
+            else if (p.right.equals(n))
+                p.right = null;
+        }
 
-//von Wiki abschreiben
+        fixMyPain(p);
 
 
     }
 
+    private void fixMyPain(Entry p){
+        //von Wiki abschreiben
+    }
 
 
     public Set<String> keySet() {
