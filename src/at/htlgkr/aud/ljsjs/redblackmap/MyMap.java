@@ -409,6 +409,7 @@ public class MyMap {
     public boolean containsKey(String key) {
         Entry r = root;
         Set<String> set = new HashSet();
+        set.add(root.key);
         while (set.size() != size()) {
             if ((set.contains(r.left) || r.left == null) && r.right != null) {
                 r = r.right;
@@ -417,9 +418,11 @@ public class MyMap {
             } else {
                 r = r.left;
             }
-            if (!set.contains(r.key)) {
+            if (!r.key.equals(key))
+            {
                 set.add(r.key);
-            } else {
+            }
+            else {
                 return true;
             }
         }
