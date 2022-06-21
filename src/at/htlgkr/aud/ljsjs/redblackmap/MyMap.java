@@ -202,13 +202,19 @@ public class MyMap {
 
 
 
-
         while (!(r == null)) {
             if (r.key.compareTo(key) < 0) {
                 r = r.left;
             } else if (r.key.compareTo(key) > 0) {
                 r = r.right;
             } else {
+                if (r.parent == null)
+                    root = null;
+                else if (r.parent.left != null && r.parent.left.equals(r))
+                    r.parent.left = null;
+                else
+                    r.parent.right = null;
+                r.parent = null;
                 break;
             }
         }
@@ -217,10 +223,12 @@ public class MyMap {
             return null;
         }
 
-        Entry parent = r.parent;
         Entry current = r;
+        Entry parent = current.parent;
 
-        oldValue = r.value;
+
+        oldValue = current.value;
+
 
         while (true){
             if (current.left != null && !current.equals(parent)){
@@ -231,19 +239,27 @@ public class MyMap {
                 }else{
                     current = current.parent;
                     if (current == null){
-                        root = null;
+                        size--;
                         return oldValue;
-                    }else
-                    current.right = null;
+                    }else{
+                        if (current.left == null){
+                            this.put(current.right.key, current.right.value);
+                            current.right = null;
+                        } else {
+                            this.put(current.left.key, current.left.value);
+                            current.left = null;
+                        }
+                    }
+
                 }
             }else {
-                if (current.parent == null){
+                /*if (current.parent == null){
                     root = null;
                 }else if (current.parent.right.equals(r))
                     current.parent.right = null;
                 else if (current.parent.left.equals(r))
                     current.parent.left = null;
-                else continue;
+                else continue;*/
 
                 return oldValue;
             }
