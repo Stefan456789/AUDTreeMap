@@ -213,19 +213,39 @@ public class MyMap {
             }
         }
 
+        if (r == null){
+            return null;
+        }
+
         Entry parent = r.parent;
         Entry current = r;
 
+        oldValue = r.value;
+
         while (true){
-            if (current.left != null && !current.parent.equals(parent)){
-                current = r.left;
-            } else if (!current.parent.equals(parent)){
+            if (current.left != null && !current.equals(parent)){
+                current = current.left;
+            } else if (!current.equals(parent)){
                 if (current.right != null){
                     current = current.right;
                 }else{
-                    //Finde alle unter key und putte sie neu dann lösche sie
+                    current = current.parent;
+                    if (current == null){
+                        root = null;
+                        return oldValue;
+                    }else
+                    current.right = null;
                 }
+            }else {
+                if (current.parent == null){
+                    root = null;
+                }else if (current.parent.right.equals(r))
+                    current.parent.right = null;
+                else if (current.parent.left.equals(r))
+                    current.parent.left = null;
+                else continue;
 
+                return oldValue;
             }
         }
 
@@ -267,7 +287,6 @@ public class MyMap {
 
 
 */
-        return oldValue;
 
     }
 
