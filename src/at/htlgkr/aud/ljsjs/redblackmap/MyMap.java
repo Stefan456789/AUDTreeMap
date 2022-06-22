@@ -2,15 +2,16 @@ package at.htlgkr.aud.ljsjs.redblackmap;
 
 import java.util.*;
 
-public class MyMap {
+public class MyMap<T extends Comparable<T>> {
 
-    private Entry root = null;
+    private Entry<T> root = null;
     private int size = 0;
 
-    public String put(String key, String value) {
+
+    public T put(T key, T value) {
 
 
-        String returnVal = null;
+        T returnVal = null;
 
 
 
@@ -18,7 +19,7 @@ public class MyMap {
             root = new Entry(key, value, null);
             root.black = true;
         } else {
-            Entry r = root;
+            Entry<T> r = root;
             boolean con = true;
             while (!(r == null) && con) {
                 if (r.key.compareTo(key) < 0) {
@@ -62,11 +63,11 @@ public class MyMap {
         return returnVal;
     }
 
-    private void handlePutCases(Entry e) {
+    private void handlePutCases(Entry<T> e) {
        /* if (e.parent != null && e.parent.black == true) {
             case1(e);
         }
-        Entry onkl = null;
+        Entry<T onkl = null;
         if (e.parent != null && e.parent.parent != null && e.parent.parent.left != null && e.parent.parent.left == e.parent) {
             onkl = e.parent.parent.right;
 
@@ -104,7 +105,7 @@ public class MyMap {
 
     }
 
-    private void case1(Entry e) {
+    private void case1(Entry<T> e) {
         if (e.parent == root) {
             case5(e);
 
@@ -112,7 +113,7 @@ public class MyMap {
     }
     }
 
-    private void case2(Entry e, Entry onkl) {
+    private void case2(Entry<T> e, Entry<T> onkl) {
 
         e.parent.parent.black = false;
         e.parent.black = true;
@@ -121,8 +122,8 @@ public class MyMap {
 
     }
 
-    private void case3(Entry e, Entry onkl) {
-        Entry temp = null;
+    private void case3(Entry<T> e, Entry<T> onkl) {
+        Entry<T> temp = null;
         if(e.parent.parent.right == e.parent){
             temp = e.parent.left;
             e.parent.left = e.parent;
@@ -138,8 +139,8 @@ public class MyMap {
         }
     }
 
-    private void case4(Entry e, Entry onkl) {
-        Entry temp = e.parent.parent;
+    private void case4(Entry<T> e, Entry<T> onkl) {
+        Entry<T> temp = e.parent.parent;
         e.parent.parent = e.parent;
 
         if(e.parent.parent.right == e.parent){
@@ -156,12 +157,12 @@ public class MyMap {
 
     }
 
-    private void case5(Entry e) {
+    private void case5(Entry<T> e) {
         e.parent.black = true;
     }
 
 
-    private void validate(Entry e) {
+    private void validate(Entry<T> e) {
         /*
         if (!e.parent.black) {
 
@@ -174,8 +175,8 @@ public class MyMap {
 
     }
 
-    public String get(String key) {
-        Entry r = root;
+    public T get(T key) {
+        Entry<T> r = root;
         boolean left = false;
 
         while (!(r == null)) {
@@ -194,10 +195,10 @@ public class MyMap {
     }
 
 
-    public String remove(String key) {
+    public T remove(T key) {
         //not finished
-        Entry r = root;
-        String oldValue = "";
+        Entry<T> r = root;
+        T oldValue = null;
 
 
 
@@ -224,8 +225,8 @@ public class MyMap {
             return null;
         }
 
-        Entry current = r;
-        Entry parent = current.parent;
+        Entry<T> current = r;
+        Entry<T> parent = current.parent;
 
 
         oldValue = current.value;
@@ -307,12 +308,12 @@ public class MyMap {
 
     }
 
-    private void RBdelete2(Entry n){
+    private void RBdelete2(Entry<T> n){
 
-        Entry p = n.parent;
-        Entry s;
-        Entry c;
-        Entry d;
+        Entry<T> p = n.parent;
+        Entry<T> s;
+        Entry<T> c;
+        Entry<T> d;
 
 
         if (p.left.equals(n))
@@ -340,15 +341,15 @@ public class MyMap {
 
     }
 
-    private void fixMyPain(Entry p){
+    private void fixMyPain(Entry<T> p){
         //von Wiki abschreiben
     }
 
 
-    public Set<String> keySet() {
-        Set<String> set = new TreeSet<>();
+    public Set<T> keySet() {
+        Set<T> set = new TreeSet<>();
 
-        for(Entry e : entrySet()){
+        for(Entry<T> e : entrySet()){
             set.add(e.key);
         }
 
@@ -374,18 +375,18 @@ public class MyMap {
     }
 
 
-    public Collection<String> values() {
-        Collection<String> values = new ArrayList<String>();
+    public Collection<T> values() {
+        Collection<T> values = new ArrayList<T>();
 
 
-        for(Entry e : entrySet()){
+        for(Entry<T> e : entrySet()){
             values.add(e.value);
         }
 
         return values;
 /*
-        Set<String> set = new HashSet<>();
-        Entry r = root;
+        Set<T> set = new HashSet<>();
+        Entry<T r = root;
         values.add(r.value);
         while (values.size() != size()) {
             if ((values.contains(r.left) || r.left == null)&& r.right != null) {
@@ -404,8 +405,8 @@ public class MyMap {
  */
 
 
-        /*Collection<String> values = new ArrayList<String>();
-        Entry r = root;
+        /*Collection<T> values = new ArrayList<T>();
+        Entry<T r = root;
         values.add(root.value);
         while (values.size() != size()) {
             if (values.contains(r.value) && r.left == null && r.right != null) {
@@ -421,8 +422,8 @@ public class MyMap {
             }
         }
 
-        Collection<String> values = new ArrayList<String>();
-            Entry r = root;
+        Collection<T> values = new ArrayList<T>();
+            Entry<T r = root;
             values.add(root);
             while(values.size() != size()){
                 if(values.contains(r.left) && r.right != null){
@@ -448,7 +449,7 @@ public class MyMap {
             return set;
         }
 
-        Entry r = root;
+        Entry<T> r = root;
         set.add(root);
         while (set.size() != size()) {
             if ((set.contains(r.left) || r.left == null) && r.right != null) {
@@ -468,13 +469,13 @@ public class MyMap {
         return treeSet;
     }
 
-    public boolean containsKey(String key) {
+    public boolean containsKey(T key) {
 
 
         return keySet().contains(key);//muass echt nd sei, des woitn wir grod schreiben
         /*
-        Entry r = root;
-        Set<String> set = new HashSet();
+        Entry<T r = root;
+        Set<T> set = new HashSet();
         set.add(root.key);
         while (set.size() != size()) {
             if ((set.contains(r.left) || r.left == null) && r.right != null) {
@@ -509,7 +510,7 @@ public class MyMap {
             return false;*/
     }
 
-    public boolean containsValue(String value) {
+    public boolean containsValue(T value) {
         return values().contains(value);
     }
 
@@ -526,8 +527,8 @@ public class MyMap {
 
     public boolean valid() {
 
-        Entry childLeft = root.left;
-        Entry childRight = root.right;
+        Entry<T> childLeft = root.left;
+        Entry<T> childRight = root.right;
         int countBlack = 0;
 
         if (root.black == false) {
@@ -559,7 +560,7 @@ public class MyMap {
             childRight = childRight.left;
         }
 
-        Entry child = root.right;
+        Entry<T> child = root.right;
 
         while (child != null && child.black == true) {
             countBlack++;
@@ -581,8 +582,8 @@ public class MyMap {
     }
 
 
-    public void rotateLeft(Entry centerNode) {
-        Entry oldParent = centerNode.parent;
+    public void rotateLeft(Entry<T> centerNode) {
+        Entry<T> oldParent = centerNode.parent;
 
 
         if (centerNode.left != null) {
@@ -600,14 +601,14 @@ public class MyMap {
         oldParent.parent = centerNode;
     }
 
-    static class Entry implements Comparable<Entry>{
+    static class Entry<T extends Comparable<T>> implements Comparable<Entry<T>>{
 
-    public String key ;
-    public String value ;
+    public T key ;
+    public T value ;
 
-    public Entry left ;
-    public Entry right ;
-    public Entry parent ;
+    public Entry<T> left ;
+    public Entry<T> right ;
+    public Entry<T> parent ;
 
     private static int counter = 0;
     private final int id;
@@ -615,7 +616,7 @@ public class MyMap {
     public boolean black = false;
 
 
-    Entry( String key , String value , Entry parent)
+    Entry( T key , T value , Entry<T> parent)
     {
         this.key = key ;
         this.value = value ;
@@ -631,7 +632,7 @@ public class MyMap {
     }
 
         @Override
-        public int compareTo(Entry o) {
+        public int compareTo(Entry<T> o) {
             return id - o.id;
         }
     }
