@@ -2,16 +2,16 @@ package at.htlgkr.aud.ljsjs.redblackmap;
 
 import java.util.*;
 
-public class MyMap<T extends Comparable<T>> {
+public class MyMap<T extends Comparable<T>, T2> {
 
-    private Entry<T> root = null;
+    private Entry<T, T2> root = null;
     private int size = 0;
 
 
-    public T put(T key, T value) {
+    public T2 put(T key, T2 value) {
 
 
-        T returnVal = null;
+        T2 returnVal = null;
 
 
 
@@ -19,7 +19,7 @@ public class MyMap<T extends Comparable<T>> {
             root = new Entry(key, value, null);
             root.black = true;
         } else {
-            Entry<T> r = root;
+            Entry<T, T2> r = root;
             boolean con = true;
             while (!(r == null) && con) {
                 if (r.key.compareTo(key) < 0) {
@@ -63,7 +63,7 @@ public class MyMap<T extends Comparable<T>> {
         return returnVal;
     }
 
-    private void handlePutCases(Entry<T> e) {
+    private void handlePutCases(Entry<T, T2> e) {
        /* if (e.parent != null && e.parent.black == true) {
             case1(e);
         }
@@ -105,7 +105,7 @@ public class MyMap<T extends Comparable<T>> {
 
     }
 
-    private void case1(Entry<T> e) {
+    private void case1(Entry<T, T2> e) {
         if (e.parent == root) {
             case5(e);
 
@@ -113,7 +113,7 @@ public class MyMap<T extends Comparable<T>> {
     }
     }
 
-    private void case2(Entry<T> e, Entry<T> onkl) {
+    private void case2(Entry<T, T2> e, Entry<T, T2> onkl) {
 
         e.parent.parent.black = false;
         e.parent.black = true;
@@ -122,8 +122,8 @@ public class MyMap<T extends Comparable<T>> {
 
     }
 
-    private void case3(Entry<T> e, Entry<T> onkl) {
-        Entry<T> temp = null;
+    private void case3(Entry<T, T2> e, Entry<T, T2> onkl) {
+        Entry<T, T2> temp = null;
         if(e.parent.parent.right == e.parent){
             temp = e.parent.left;
             e.parent.left = e.parent;
@@ -139,8 +139,8 @@ public class MyMap<T extends Comparable<T>> {
         }
     }
 
-    private void case4(Entry<T> e, Entry<T> onkl) {
-        Entry<T> temp = e.parent.parent;
+    private void case4(Entry<T, T2> e, Entry<T, T2> onkl) {
+        Entry<T, T2> temp = e.parent.parent;
         e.parent.parent = e.parent;
 
         if(e.parent.parent.right == e.parent){
@@ -157,12 +157,12 @@ public class MyMap<T extends Comparable<T>> {
 
     }
 
-    private void case5(Entry<T> e) {
+    private void case5(Entry<T, T2> e) {
         e.parent.black = true;
     }
 
 
-    private void validate(Entry<T> e) {
+    private void validate(Entry<T, T2> e) {
         /*
         if (!e.parent.black) {
 
@@ -175,8 +175,8 @@ public class MyMap<T extends Comparable<T>> {
 
     }
 
-    public T get(T key) {
-        Entry<T> r = root;
+    public T2 get(T key) {
+        Entry<T, T2> r = root;
         boolean left = false;
 
         while (!(r == null)) {
@@ -195,10 +195,10 @@ public class MyMap<T extends Comparable<T>> {
     }
 
 
-    public T remove(T key) {
+    public T2 remove(T key) {
         //not finished
-        Entry<T> r = root;
-        T oldValue = null;
+        Entry<T, T2> r = root;
+        T2 oldValue = null;
 
 
 
@@ -225,8 +225,8 @@ public class MyMap<T extends Comparable<T>> {
             return null;
         }
 
-        Entry<T> current = r;
-        Entry<T> parent = current.parent;
+        Entry<T, T2> current = r;
+        Entry<T, T2> parent = current.parent;
 
 
         oldValue = current.value;
@@ -308,12 +308,12 @@ public class MyMap<T extends Comparable<T>> {
 
     }
 
-    private void RBdelete2(Entry<T> n){
+    private void RBdelete2(Entry<T, T2> n){
 
-        Entry<T> p = n.parent;
-        Entry<T> s;
-        Entry<T> c;
-        Entry<T> d;
+        Entry<T, T2> p = n.parent;
+        Entry<T, T2> s;
+        Entry<T, T2> c;
+        Entry<T, T2> d;
 
 
         if (p.left.equals(n))
@@ -341,7 +341,7 @@ public class MyMap<T extends Comparable<T>> {
 
     }
 
-    private void fixMyPain(Entry<T> p){
+    private void fixMyPain(Entry<T, T2> p){
         //von Wiki abschreiben
     }
 
@@ -349,7 +349,7 @@ public class MyMap<T extends Comparable<T>> {
     public Set<T> keySet() {
         Set<T> set = new TreeSet<>();
 
-        for(Entry<T> e : entrySet()){
+        for(Entry<T, T2> e : entrySet()){
             set.add(e.key);
         }
 
@@ -375,11 +375,11 @@ public class MyMap<T extends Comparable<T>> {
     }
 
 
-    public Collection<T> values() {
-        Collection<T> values = new ArrayList<T>();
+    public Collection<T2> values() {
+        Collection<T2> values = new ArrayList<>();
 
 
-        for(Entry<T> e : entrySet()){
+        for(Entry<T, T2> e : entrySet()){
             values.add(e.value);
         }
 
@@ -449,7 +449,7 @@ public class MyMap<T extends Comparable<T>> {
             return set;
         }
 
-        Entry<T> r = root;
+        Entry<T, T2> r = root;
         set.add(root);
         while (set.size() != size()) {
             if ((set.contains(r.left) || r.left == null) && r.right != null) {
@@ -510,7 +510,7 @@ public class MyMap<T extends Comparable<T>> {
             return false;*/
     }
 
-    public boolean containsValue(T value) {
+    public boolean containsValue(T2 value) {
         return values().contains(value);
     }
 
@@ -527,8 +527,8 @@ public class MyMap<T extends Comparable<T>> {
 
     public boolean valid() {
 
-        Entry<T> childLeft = root.left;
-        Entry<T> childRight = root.right;
+        Entry<T, T2> childLeft = root.left;
+        Entry<T, T2> childRight = root.right;
         int countBlack = 0;
 
         if (root.black == false) {
@@ -560,7 +560,7 @@ public class MyMap<T extends Comparable<T>> {
             childRight = childRight.left;
         }
 
-        Entry<T> child = root.right;
+        Entry<T, T2> child = root.right;
 
         while (child != null && child.black == true) {
             countBlack++;
@@ -582,8 +582,8 @@ public class MyMap<T extends Comparable<T>> {
     }
 
 
-    public void rotateLeft(Entry<T> centerNode) {
-        Entry<T> oldParent = centerNode.parent;
+    public void rotateLeft(Entry<T, T2> centerNode) {
+        Entry<T, T2> oldParent = centerNode.parent;
 
 
         if (centerNode.left != null) {
@@ -601,14 +601,14 @@ public class MyMap<T extends Comparable<T>> {
         oldParent.parent = centerNode;
     }
 
-    static class Entry<T extends Comparable<T>> implements Comparable<Entry<T>>{
+    static class Entry<T extends Comparable<T>, T2> implements Comparable<Entry<T, T2>>{
 
     public T key ;
-    public T value ;
+    public T2 value ;
 
-    public Entry<T> left ;
-    public Entry<T> right ;
-    public Entry<T> parent ;
+    public Entry<T, T2> left ;
+    public Entry<T, T2> right ;
+    public Entry<T, T2> parent ;
 
     private static int counter = 0;
     private final int id;
@@ -616,7 +616,7 @@ public class MyMap<T extends Comparable<T>> {
     public boolean black = false;
 
 
-    Entry( T key , T value , Entry<T> parent)
+    Entry( T key ,T2 value , Entry<T, T2> parent)
     {
         this.key = key ;
         this.value = value ;
@@ -632,7 +632,7 @@ public class MyMap<T extends Comparable<T>> {
     }
 
         @Override
-        public int compareTo(Entry<T> o) {
+        public int compareTo(Entry<T, T2> o) {
             return id - o.id;
         }
     }
