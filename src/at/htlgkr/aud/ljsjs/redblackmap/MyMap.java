@@ -380,7 +380,7 @@ public class MyMap {
 
 
         for(Entry e : entrySet()){
-            values.add(e.key);
+            values.add(e.value);
         }
 
         return values;
