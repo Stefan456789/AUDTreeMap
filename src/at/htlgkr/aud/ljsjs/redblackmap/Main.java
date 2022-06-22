@@ -13,8 +13,7 @@ public class Main {
         m.put("4", "four");
         m.put("5", "five");
 
-        Collection<String> s = m.values();
-        System.out.println(s.contains("three"));
+        System.out.println(m.get("4"));
     }
 
 }

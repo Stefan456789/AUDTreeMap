@@ -7,10 +7,10 @@ public class MyMap {
     private Entry root = null;
     private int size = 0;
 
-    public String put(String key, String value) {
+    public Comparable put(Comparable key, Comparable value) {
 
 
-        String returnVal = null;
+        Comparable returnVal = null;
 
 
 
@@ -174,7 +174,7 @@ public class MyMap {
 
     }
 
-    public String get(String key) {
+    public Comparable get(Comparable key) {
         Entry r = root;
         boolean left = false;
 
@@ -194,10 +194,10 @@ public class MyMap {
     }
 
 
-    public String remove(String key) {
+    public Comparable remove(Comparable key) {
         //not finished
         Entry r = root;
-        String oldValue = "";
+        Comparable oldValue = "";
 
 
 
@@ -345,8 +345,8 @@ public class MyMap {
     }
 
 
-    public Set<String> keySet() {
-        Set<String> set = new TreeSet<>();
+    public Set<Comparable> keySet() {
+        Set<Comparable> set = new TreeSet<>();
 
         for(Entry e : entrySet()){
             set.add(e.key);
@@ -374,8 +374,8 @@ public class MyMap {
     }
 
 
-    public Collection<String> values() {
-        Collection<String> values = new ArrayList<String>();
+    public Collection<Comparable> values() {
+        Collection<Comparable> values = new ArrayList<Comparable>();
 
 
         for(Entry e : entrySet()){
@@ -384,7 +384,7 @@ public class MyMap {
 
         return values;
 /*
-        Set<String> set = new HashSet<>();
+        Set<Comparable> set = new HashSet<>();
         Entry r = root;
         values.add(r.value);
         while (values.size() != size()) {
@@ -404,7 +404,7 @@ public class MyMap {
  */
 
 
-        /*Collection<String> values = new ArrayList<String>();
+        /*Collection<Comparable> values = new ArrayList<Comparable>();
         Entry r = root;
         values.add(root.value);
         while (values.size() != size()) {
@@ -421,7 +421,7 @@ public class MyMap {
             }
         }
 
-        Collection<String> values = new ArrayList<String>();
+        Collection<Comparable> values = new ArrayList<Comparable>();
             Entry r = root;
             values.add(root);
             while(values.size() != size()){
@@ -468,13 +468,13 @@ public class MyMap {
         return treeSet;
     }
 
-    public boolean containsKey(String key) {
+    public boolean containsKey(Comparable key) {
 
 
         return keySet().contains(key);//muass echt nd sei, des woitn wir grod schreiben
         /*
         Entry r = root;
-        Set<String> set = new HashSet();
+        Set<Comparable> set = new HashSet();
         set.add(root.key);
         while (set.size() != size()) {
             if ((set.contains(r.left) || r.left == null) && r.right != null) {
@@ -509,7 +509,7 @@ public class MyMap {
             return false;*/
     }
 
-    public boolean containsValue(String value) {
+    public boolean containsValue(Comparable value) {
         return values().contains(value);
     }
 
@@ -602,8 +602,8 @@ public class MyMap {
 
     static class Entry implements Comparable<Entry>{
 
-    public String key ;
-    public String value ;
+    public Comparable key ;
+    public Comparable value ;
 
     public Entry left ;
     public Entry right ;
@@ -615,7 +615,7 @@ public class MyMap {
     public boolean black = false;
 
 
-    Entry( String key , String value , Entry parent)
+    Entry( Comparable key , Comparable value , Entry parent)
     {
         this.key = key ;
         this.value = value ;
