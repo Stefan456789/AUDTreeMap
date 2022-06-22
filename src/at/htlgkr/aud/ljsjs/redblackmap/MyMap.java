@@ -534,7 +534,7 @@ public class MyMap {
         }
 
         while (!childRight.black == true) {
-            if (!(childLeft.black && childRight.black)) {
+            if (!(childLeft.black && childRight.black)){
                 return false;
             }
             childLeft = childLeft.left;
