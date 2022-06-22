@@ -13,6 +13,7 @@ public class MyMap {
         String returnVal = null;
 
 
+
         if (root == null) {
             root = new Entry(key, value, null);
             root.black = true;
@@ -24,7 +25,7 @@ public class MyMap {
                     if (r.left == null) {
                         r.left = new Entry(key, value, r);
                         this.validate(r.left);
-                        //handlePutCases(r.left);
+                        handlePutCases(r.left);
                         con = false;
                     } else {
                         r = r.left;
@@ -38,12 +39,12 @@ public class MyMap {
 
                             r.right = new Entry(key, value, r);
                             this.validate(r.right);
-                            //handlePutCases(r.right);
+                            handlePutCases(r.right);
                             con = false;
                         } else {
                             r = r.right;
                             this.validate(r);
-                            //handlePutCases(r);
+                            handlePutCases(r);
                         }
 
 
@@ -62,23 +63,23 @@ public class MyMap {
     }
 
     private void handlePutCases(Entry e) {
-        if (e.parent.black == true) {
+       /* if (e.parent != null && e.parent.black == true) {
             case1(e);
         }
         Entry onkl = null;
-        if (e.parent.parent.left == e.parent) {
+        if (e.parent != null && e.parent.parent != null && e.parent.parent.left != null && e.parent.parent.left == e.parent) {
             onkl = e.parent.parent.right;
 
-        } else {
+        } else if(e.parent != null && e.parent.parent != null) {
             onkl = e.parent.parent.left;
         }
-        if(e.parent.black == false && e.parent.parent.black == true && onkl.black == false){
+        if(onkl != null && e.parent != null && e.parent.parent != null && e.parent.black == false && e.parent.parent.black == true && onkl.black == false){
             case2(e, onkl);
             handlePutCases(e);
             return;
         }
 
-        if(e.parent.black == false && e.parent.parent.black == true && (onkl == null || onkl.black == true)) {
+        if(e.parent != null && e.parent.parent != null && e.parent.black == false && e.parent.parent.black == true && (onkl == null || onkl.black == true)) {
             if (e.parent == e.parent.parent.right) {
                 if(e == e.parent.right){
                     case4(e, onkl);
@@ -86,19 +87,19 @@ public class MyMap {
                     case3(e, onkl);
                 }
 
-            }else if(e == (e.parent.left)){
+            }else if(e.parent != null && e.parent.parent != null && e == (e.parent.left)){
                     case4(e, onkl);
-            }else{
+            }else if(e.parent != null && e.parent.parent != null){
                     case3(e,onkl);
                 }
 
         }
 
-        if(e.parent.black == false && e.parent == root){
+        if(e.parent != null && e.parent.black == false && e.parent == root){
             case5(e);
         }
 
-
+*/
 
 
     }
@@ -138,8 +139,8 @@ public class MyMap {
     }
 
     private void case4(Entry e, Entry onkl) {
-        Entry temp = onkl.parent;
-        onkl.parent = e.parent;
+        Entry temp = e.parent.parent;
+        e.parent.parent = e.parent;
 
         if(e.parent.parent.right == e.parent){
             e.parent.parent.left = temp;
