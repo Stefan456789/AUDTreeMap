@@ -346,7 +346,7 @@ public class MyMap {
 
 
     public Set<String> keySet() {
-        Set<String> set = new HashSet<>();
+        Set<String> set = new TreeSet<>();
 
         for(Entry e : entrySet()){
             set.add(e.key);
@@ -376,7 +376,6 @@ public class MyMap {
 
     public Collection<String> values() {
         Collection<String> values = new ArrayList<String>();
-
 
 
         for(Entry e : entrySet()){
@@ -464,7 +463,9 @@ public class MyMap {
                 set.add(r);
             }
         }
-        return set;
+        Set<Entry> treeSet = new TreeSet<>();
+        treeSet.addAll(set);
+        return treeSet;
     }
 
     public boolean containsKey(String key) {
@@ -599,7 +600,7 @@ public class MyMap {
         oldParent.parent = centerNode;
     }
 
-    static class Entry{
+    static class Entry implements Comparable<Entry>{
 
     public String key ;
     public String value ;
@@ -608,14 +609,19 @@ public class MyMap {
     public Entry right ;
     public Entry parent ;
 
+    private static int counter = 0;
+    private final int id;
+
     public boolean black = false;
 
 
-    Entry( String key , String value , Entry parent )
+    Entry( String key , String value , Entry parent)
     {
         this.key = key ;
         this.value = value ;
         this.parent = parent ;
+        id = counter;
+        counter++;
     }
 
     public boolean valid(){
@@ -624,5 +630,9 @@ public class MyMap {
         return true;
     }
 
+        @Override
+        public int compareTo(Entry o) {
+            return id - o.id;
+        }
     }
 }
