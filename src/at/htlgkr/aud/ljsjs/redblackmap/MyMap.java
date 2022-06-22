@@ -346,9 +346,15 @@ public class MyMap {
 
     public Set<String> keySet() {
         Set<String> set = new HashSet<>();
-        Entry r = root;
+
+        for(Entry e : entrySet()){
+            set.add(e.key);
+        }
+
+        return set;
+        /*
         set.add(r.key);
-        while (set.size() != size()) {
+        while (true) {
             if ((set.contains(r.left) || r.left == null)&& r.right != null) {
                 r = r.right;
             } else if (set.contains(r) && (set.contains(r.left) || r.left == null) && (set.contains(r.right) || r.right == null)) {
@@ -362,12 +368,23 @@ public class MyMap {
             }
         }
         return set;
+
+         */
     }
 
 
     public Collection<String> values() {
-
         Collection<String> values = new ArrayList<String>();
+
+
+
+        for(Entry e : entrySet()){
+            values.add(e.key);
+        }
+
+        return values;
+/*
+        Set<String> set = new HashSet<>();
         Entry r = root;
         values.add(r.value);
         while (values.size() != size()) {
@@ -383,7 +400,8 @@ public class MyMap {
                 values.add(r.value);
             }
         }
-        return values;
+
+ */
 
 
         /*Collection<String> values = new ArrayList<String>();
@@ -422,7 +440,14 @@ public class MyMap {
     }
 
     public Set<Entry> entrySet() {
+
+
         Set<Entry> set = new HashSet<>();
+        if(root == null)
+        {
+            return set;
+        }
+
         Entry r = root;
         set.add(root);
         while (set.size() != size()) {
@@ -442,6 +467,10 @@ public class MyMap {
     }
 
     public boolean containsKey(String key) {
+
+
+        return keySet().contains(key);//muass echt nd sei, des woitn wir grod schreiben
+        /*
         Entry r = root;
         Set<String> set = new HashSet();
         set.add(root.key);
